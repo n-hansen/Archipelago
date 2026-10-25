@@ -4,6 +4,8 @@ from Options import Choice, PerGameCommonOptions, Range, Toggle
 
 MAX_MAX_LEVEL = 50
 MAX_LOCATIONS_PER_LEVEL = 10
+MAX_SECRETS_PER_SULTANATE = 10 # usually higher, but this is the minimum guaranteed
+MAX_SULTAN_SECRETS = 5*MAX_SECRETS_PER_SULTANATE+16
 
 class Goal(Choice):
     """
@@ -53,6 +55,67 @@ class ExtraLocationLevels(Range):
     range_end = 20
     default = 5
 
+class SultanSecretsRequired(Range):
+    """
+    Determines the number of sultan secrets needed to be found.
+    """
+
+    display_name = "Number of sultan secrets needed"
+    range_start = 0
+    range_end = MAX_SULTAN_SECRETS
+    default = 30
+
+class SultanSecretsPerLocation(Range):
+    """
+    Determines how many secrets need to be found per location.
+    """
+
+    display_name = "Sultan secrets per location"
+    range_start = 1
+    range_end = MAX_SECRETS_PER_SULTANATE
+    default = 5
+
+class PeriodSultanSecretsRequired(Range):
+    """
+    Determines the number of sultan secrets needed to be found per period.
+    """
+
+    display_name = "Number of secrets needed per sultanate"
+    range_start = 0
+    range_end = MAX_SECRETS_PER_SULTANATE
+    default = 1
+
+class PeriodSultanSecretsPerLocation(Range):
+    """
+    Determines the number of period-specific sultan secrets needed to be found per location.
+    """
+
+    display_name = "Number of sultanate secrets per location"
+    range_start = 1
+    range_end = MAX_SECRETS_PER_SULTANATE
+    default = 1
+
+class ReshephSecretsRequired(Range):
+    """
+    Determines the number of Resheph secrets needed to be found.
+    Setting to zero falls back to the per-period sultan lore setting.
+    """
+
+    display_name = "Number of Resheph secrets needed"
+    range_start = 0
+    range_end = 16
+    default = 6
+
+class ReshephSecretsPerLocation(Range):
+    """
+    Determines the number of Resheph secrets needed to be found per location.
+    """
+
+    display_name = "Number of Resheph secrets per location"
+    range_start = 1
+    range_end = 16
+    default = 2
+
 class TrapPercentage(Range):
     """
     Determines the percentage of filler items that are replaced by
@@ -78,6 +141,12 @@ class CoQOptions(PerGameCommonOptions):
     genotype: Genotype
     locations_per_level: LocationsPerLevel
     extra_location_levels: ExtraLocationLevels
+    sultan_secrets_required: SultanSecretsRequired
+    sultan_secrets_per_location: SultanSecretsPerLocation
+    period_sultan_secrets_required: PeriodSultanSecretsRequired
+    period_sultan_secrets_per_location: PeriodSultanSecretsPerLocation
+    resheph_secrets_required: ReshephSecretsRequired
+    resheph_secrets_per_location: ReshephSecretsPerLocation
     trap_percentage: TrapPercentage
     lost_artifacts: LostArtifacts
     # death_link: DeathLink

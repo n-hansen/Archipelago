@@ -46,6 +46,24 @@ def add_level_locations(world: "CoQWorld", region: Region, start: int, end: int)
             level_loc.progress_type = LocationProgressType.DEFAULT
             region.locations += [level_loc]
 
+def add_secret_locations(world: "CoQWorld"):
+    max_lvl = Quests.max_level(world)
+    region = world.get_region("Joppa") # secrets can be anywhere in the world
+    for loc_name, expected_lvl in Locations.sultan_secret_locations(world.options):
+        secret_loc = Locations.CoQLocation(
+            world.player,
+            loc_name,
+            world.location_name_to_id[loc_name],
+            region
+        )
+        if expected_lvl > 1:
+            expected_lvl = min(expected_lvl, max_lvl)
+            secret_loc.access_rule = lambda state: state.can_reach_location(
+                Locations.xp_location_name(expected_lvl,0)
+            )
+        secret_loc.progress_type = LocationProgressType.DEFAULT
+        region.locations.append(secret_loc)
+
 def add_quests(world: "CoQWorld"):
     for quest_name in Quests.quest_keys(world):
         region = world.get_region(Quests.quest_locations[quest_name].region)
@@ -107,6 +125,7 @@ def create_regions(world: "CoQWorld"):
                                   state.has(region.unlock, world.player))
         else:
             parent_region.connect(new_region, entrance_name)
-    
+
+    add_secret_locations(world)
     add_quests(world)
     add_static_locations(world)
