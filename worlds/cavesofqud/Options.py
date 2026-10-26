@@ -55,6 +55,18 @@ class ExtraLocationLevels(Range):
     range_end = 20
     default = 5
 
+class RevealHistoricSiteItemCount(Range):
+    """
+    Determines the number of historic site reveals to put in the item pool.
+    Sites in the pool cannot be revealed via discovering secrets.
+    The historic sites are added to the pool in ascending order of zone tier.
+    """
+
+    display_name = "Number of historic sites to reveal"
+    range_start = 0
+    range_end = 8
+    default = 4
+
 class SultanSecretsRequired(Range):
     """
     Determines the number of sultan secrets needed to be found.
@@ -141,6 +153,7 @@ class CoQOptions(PerGameCommonOptions):
     genotype: Genotype
     locations_per_level: LocationsPerLevel
     extra_location_levels: ExtraLocationLevels
+    reveal_historic_site_item_count: RevealHistoricSiteItemCount
     sultan_secrets_required: SultanSecretsRequired
     sultan_secrets_per_location: SultanSecretsPerLocation
     period_sultan_secrets_required: PeriodSultanSecretsRequired
