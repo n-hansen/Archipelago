@@ -1,50 +1,50 @@
 [
     {
         "name": "Historic Site of the Fifth Sultanate",
-        "visit": 1,
-        "explore": 2,
-        "region": "Historic Site 1"
+        "visit_level": 1,
+        "explore_level": 2,
+        "region_name": "Historic Site 1"
     },
     {
         "name": "Older Historic Site of the Fifth Sultanate",
-        "visit": 4,
-        "explore": 6,
-        "region": "Historic Site 2"
+        "visit_level": 4,
+        "explore_level": 6,
+        "region_name": "Historic Site 2"
     },
     {
         "name": "Historic Site of the Fourth Sultanate",
-        "visit": 10,
-        "explore": 15,
-        "region": "Historic Site 3"
+        "visit_level": 10,
+        "explore_level": 15,
+        "region_name": "Historic Site 3"
     },
     {
         "name": "Older Historic Site of the Fourth Sultanate",
-        "visit": 12,
-        "explore": 20,
-        "region": "Historic Site 4"
+        "visit_level": 12,
+        "explore_level": 20,
+        "region_name": "Historic Site 4"
     },
     {
         "name": "Historic Site of the Third Sultanate",
-        "visit": 18,
-        "explore": 24,
-        "region": "Historic Site 5"
+        "visit_level": 18,
+        "explore_level": 24,
+        "region_name": "Historic Site 5"
     },
     {
         "name": "Older Historic Site of the Third Sultanate",
-        "visit": 23,
-        "explore": 26,
-        "region": "Historic Site 6"
+        "visit_level": 23,
+        "explore_level": 26,
+        "region_name": "Historic Site 6"
     },
     {
         "name": "Historic Site of the Second Sultanate",
-        "visit": 26,
-        "explore": 32,
-        "region": "Historic Site 7"
+        "visit_level": 26,
+        "explore_level": 32,
+        "region_name": "Historic Site 7"
     },
     {
         "name": "Historic Site of the First Sultanate",
-        "visit": 30,
-        "explore": 36,
-        "region": "Historic Site 8"
+        "visit_level": 30,
+        "explore_level": 36,
+        "region_name": "Historic Site 8"
     }
 ]

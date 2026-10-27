@@ -11,9 +11,9 @@ class HistoricSiteData:
     explore_level: int
     region_name: str
 
-_historic_site_data = pkgutil.get_data(__name__, "data/HistoricSites.json")
-assert _historic_site_data is not None
+historic_site_data = pkgutil.get_data(__name__, "data/HistoricSites.json")
+assert historic_site_data is not None
 historic_site_data: List[HistoricSiteData] = sorted([
-    HistoricSiteData(s["name"], s["visit"], s["explore"], s["region"])
-    for s in json.loads(_historic_site_data)
+    HistoricSiteData(s["name"], s["visit_level"], s["explore_level"], s["region_name"])
+    for s in json.loads(historic_site_data)
 ], key=lambda s: s.visit_level)
