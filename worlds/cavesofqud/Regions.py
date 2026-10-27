@@ -58,8 +58,8 @@ def add_secret_locations(world: "CoQWorld"):
         )
         if expected_lvl > 1:
             expected_lvl = min(expected_lvl, max_lvl)
-            secret_loc.access_rule = lambda state: Items.has_enough_stats_for_level(
-                expected_lvl, state, world
+            secret_loc.access_rule = lambda state, lvl=expected_lvl: Items.has_enough_stats_for_level(
+                lvl, state, world
             )
         secret_loc.progress_type = LocationProgressType.DEFAULT
         region.locations.append(secret_loc)
