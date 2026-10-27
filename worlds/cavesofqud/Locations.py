@@ -6,7 +6,7 @@ from typing import Dict, Iterable, NamedTuple, Optional
 
 from BaseClasses import Location
 
-from . import Options, Quests
+from . import Data, Options, Quests
 
 
 class CoQLocation(Location):
@@ -51,14 +51,14 @@ def sultan_secret_locations(opts: Optional[Options.CoQOptions]) -> Iterable[tupl
     req_secrets = opts.sultan_secrets_required if opts is not None else Options.MAX_SULTAN_SECRETS
     secrets_per_loc = opts.sultan_secrets_per_location if opts is not None else 1
     for i in range(1,req_secrets+1):
-        if i%secrets_per_loc==0:
+        if i%secrets_per_loc==0 or i==req_secrets:
             yield (f"{i} Sultan Lore", math.ceil(i*4/5))
     req_secrets = opts.period_sultan_secrets_required if opts is not None else Options.MAX_SECRETS_PER_SULTANATE
     secrets_per_loc = opts.period_sultan_secrets_per_location if opts is not None else 1
     for p in ["First","Second","Third","Fourth","Fifth"]:
         yield (f"Lore from the {p} Sultanate", 4)
         for i in range(1,req_secrets+1):
-            if i%secrets_per_loc==0:
+            if i%secrets_per_loc==0 or i==req_secrets:
                 count = f"{i} " if i>1 else ""
                 yield (f"{count}Lore from the {p} Sultanate", i*5-1)
     if opts is not None and opts.resheph_secrets_required>0:
@@ -67,13 +67,22 @@ def sultan_secret_locations(opts: Optional[Options.CoQOptions]) -> Iterable[tupl
     elif opts is None:
         req_secrets = 16
     for i in range(1,req_secrets+1):
-        if i%secrets_per_loc==0:
+        if i%secrets_per_loc==0 or i==req_secrets:
             yield (f"{i} Resheph Lore", i*5-1)
 
+def historic_site_locations(opts: Optional[Options.CoQOptions]) -> Iterable[str]:
+    visit_count = opts.historic_site_visit_locations if opts is not None else 8
+    explore_count = opts.historic_site_explore_locations if opts is not None else 8
+    for i, site in enumerate(Data.historic_site_data):
+        if i < visit_count:
+            yield f"Visit {site.name}"
+        if i < explore_count:
+            yield f"Explore {site.name}"
 
 all_locations: Iterable[str] = itertools.chain(
     Quests.quest_locations.keys(),
     [name for name, data in static_locations.items()],
     xp_locations(1, Options.MAX_MAX_LEVEL, Options.MAX_LOCATIONS_PER_LEVEL),
     [name for name, _expected_lvl in sultan_secret_locations(None)],
+    historic_site_locations(None),
 )
