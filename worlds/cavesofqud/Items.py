@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING, Dict, Iterable, List, NamedTuple
 
 from BaseClasses import CollectionState, Item, ItemClassification
 
-from . import Options, Quests
+from . import Data, Options, Quests
 
 if TYPE_CHECKING:
     from . import CoQWorld
@@ -50,24 +50,12 @@ unlock_items = {
     "Kyakukya Token": 15,
 }
 
-reveal_historic_site_items = {
-    # added top-down
-    "Historic Site of the Fifth Sultanate": 1,
-    "Older Historic Site of the Fifth Sultanate": 10,
-    "Historic Site of the Fourth Sultanate": 15,
-    "Older Historic Site of the Fourth Sultanate": 20,
-    "Historic Site of the Third Sultanate": 25,
-    "Older Historic Site of the Third Sultanate": 30,
-    "Historic Site of the Second Sultanate": 30,
-    "Historic Site of the First Sultanate": 35,
-}
-
 all_items: Iterable[str] = [
     main_quest_item,
     *stat_items,
     *[i for i in static_items.keys()],
     *unlock_items,
-    *reveal_historic_site_items,
+    *[s.name for s in Data.historic_site_data]
 ]
 
 
@@ -175,20 +163,20 @@ def create_items(world: "CoQWorld"):
             ]
 
     # Historic site reveal items
-    historic_reveal_site_items = []
-    for item, level in reveal_historic_site_items.items():
-        if len(historic_reveal_site_items) >= world.options.reveal_historic_site_item_count:
+    historic_site_reveal_items = []
+    for site in Data.historic_site_data:
+        if (len(historic_site_reveal_items) >= world.options.reveal_historic_site_item_count
+            or site.visit_level > Quests.max_level(world)):
             break
-        if level <= Quests.max_level(world):
-            historic_reveal_site_items.append(
-                CoQItem(
-                    item,
-                    ItemClassification.progression,
-                    world.item_name_to_id[item],
-                    world.player
-                )
+        historic_site_reveal_items.append(
+            CoQItem(
+                site.name,
+                ItemClassification.progression,
+                world.item_name_to_id[site.name],
+                world.player
             )
-    item_pool += historic_reveal_site_items
+        )
+    item_pool += historic_site_reveal_items
 
     # Stat ups from level ups
     for level in levelup_levels(Quests.max_level(world)):

@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING, Dict, NamedTuple
 
 from BaseClasses import LocationProgressType, Region
 
-from . import Items, Locations, Quests
+from . import Data, Items, Locations, Quests
 
 if TYPE_CHECKING:
     from . import CoQWorld
@@ -104,6 +104,64 @@ def add_static_locations(world: "CoQWorld"):
         quest_loc.progress_type = LocationProgressType.DEFAULT
         region.locations += [quest_loc]
 
+def add_historic_site_regions_and_locations(world: "CoQWorld"):
+    # Add historic site access regions. They represent the player having the site revealed on
+    # the in-game map. All descend from Joppa to avoid dependency on Main Quest progression.
+    parent_region = world.get_region("Joppa")
+    historic_regions = []
+    for site in Data.historic_site_data:
+        if (len(historic_regions) >= world.options.reveal_historic_site_item_count
+            or site.visit_level > Quests.max_level(world)):
+            break
+        new_region = Region(site.region_name, world.player, world.multiworld)
+        entrance_name = f"Reveal {site.name}"
+        parent_region.connect(
+            new_region,
+            entrance_name,
+            lambda state, site_name=site.name: state.has(site_name, world.player)
+        )
+        historic_regions.append(new_region)
+    world.multiworld.regions += historic_regions
+    historic_regions = {region.name: region for region in historic_regions}
+
+    # Add historic site locations. They are in logic once the player has revealed the site
+    # on the in-game map *via AP item*.
+    for i, site in enumerate(Data.historic_site_data):
+        region = historic_regions.get(site.region_name, parent_region)
+
+        if (i < world.options.historic_site_visit_locations
+            and site.visit_level <= Quests.max_level(world)
+            ):
+            loc_name = f"Visit {site.name}"
+            visit_loc = Locations.CoQLocation(
+                world.player,
+                loc_name,
+                world.location_name_to_id[loc_name],
+                region,
+            )
+            visit_loc.access_rule = lambda state, lvl=site.visit_level: Items.has_enough_stats_for_level(
+                lvl, state, world
+            )
+            visit_loc.progress_type = LocationProgressType.DEFAULT
+            region.locations += [visit_loc]
+
+        if (i < world.options.historic_site_explore_locations
+            and site.explore_level <= Quests.max_level(world)
+            ):
+            loc_name = f"Explore {site.name}"
+            region = historic_regions.get(site.region_name, parent_region)
+            explore_loc = Locations.CoQLocation(
+                world.player,
+                loc_name,
+                world.location_name_to_id[loc_name],
+                region,
+            )
+            explore_loc.access_rule = lambda state, lvl=site.explore_level: Items.has_enough_stats_for_level(
+                lvl, state, world
+            )
+            explore_loc.progress_type = LocationProgressType.PRIORITY
+            region.locations += [explore_loc]
+
 def create_regions(world: "CoQWorld"):
     # Default always-reachable region
     menu = Region("Menu", world.player, world.multiworld)
@@ -129,3 +187,4 @@ def create_regions(world: "CoQWorld"):
     add_secret_locations(world)
     add_quests(world)
     add_static_locations(world)
+    add_historic_site_regions_and_locations(world)

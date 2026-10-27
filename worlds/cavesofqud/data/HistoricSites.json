@@ -1,0 +1,50 @@
+[
+    {
+        "name": "Historic Site of the Late Fifth Sultanate",
+        "visit_level": 1,
+        "explore_level": 2,
+        "region_name": "Historic Site 1"
+    },
+    {
+        "name": "Historic Site of the Early Fifth Sultanate",
+        "visit_level": 4,
+        "explore_level": 6,
+        "region_name": "Historic Site 2"
+    },
+    {
+        "name": "Historic Site of the Late Fourth Sultanate",
+        "visit_level": 10,
+        "explore_level": 15,
+        "region_name": "Historic Site 3"
+    },
+    {
+        "name": "Historic Site of the Early Fourth Sultanate",
+        "visit_level": 12,
+        "explore_level": 20,
+        "region_name": "Historic Site 4"
+    },
+    {
+        "name": "Historic Site of the Late Third Sultanate",
+        "visit_level": 18,
+        "explore_level": 24,
+        "region_name": "Historic Site 5"
+    },
+    {
+        "name": "Historic Site of the Early Third Sultanate",
+        "visit_level": 23,
+        "explore_level": 26,
+        "region_name": "Historic Site 6"
+    },
+    {
+        "name": "Historic Site of the Second Sultanate",
+        "visit_level": 26,
+        "explore_level": 32,
+        "region_name": "Historic Site 7"
+    },
+    {
+        "name": "Historic Site of the First Sultanate",
+        "visit_level": 30,
+        "explore_level": 36,
+        "region_name": "Historic Site 8"
+    }
+]

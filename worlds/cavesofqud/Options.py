@@ -67,6 +67,26 @@ class RevealHistoricSiteItemCount(Range):
     range_end = 8
     default = 4
 
+class HistoricSiteVisitLocations(Range):
+    """
+    Determines the number of locations from visiting historic sites.
+    """
+
+    display_name = "Number of historic sites to visit"
+    range_start = 0
+    range_end = 8
+    default = 4
+
+class HistoricSiteExploreLocations(Range):
+    """
+    Determine the number of locations from reaching the bottom of a historic site.
+    """
+
+    display_name = "Number of historic sites to explore"
+    range_start = 0
+    range_end = 8
+    default = 4
+
 class SultanSecretsRequired(Range):
     """
     Determines the number of sultan secrets needed to be found.
@@ -154,6 +174,8 @@ class CoQOptions(PerGameCommonOptions):
     locations_per_level: LocationsPerLevel
     extra_location_levels: ExtraLocationLevels
     reveal_historic_site_item_count: RevealHistoricSiteItemCount
+    historic_site_visit_locations: HistoricSiteVisitLocations
+    historic_site_explore_locations: HistoricSiteExploreLocations
     sultan_secrets_required: SultanSecretsRequired
     sultan_secrets_per_location: SultanSecretsPerLocation
     period_sultan_secrets_required: PeriodSultanSecretsRequired
