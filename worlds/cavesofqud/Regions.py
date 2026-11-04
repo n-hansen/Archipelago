@@ -105,6 +105,8 @@ def add_static_locations(world: "CoQWorld"):
         region.locations += [quest_loc]
 
 def add_historic_site_regions_and_locations(world: "CoQWorld"):
+    # Add historic site access regions. They represent the player having the site revealed on
+    # the in-game map. All descend from Joppa to avoid dependency on Main Quest progression.
     parent_region = world.get_region("Joppa")
     historic_regions = []
     for site in Data.historic_site_data:
@@ -121,10 +123,15 @@ def add_historic_site_regions_and_locations(world: "CoQWorld"):
         historic_regions.append(new_region)
     world.multiworld.regions += historic_regions
     historic_regions = {region.name: region for region in historic_regions}
+
+    # Add historic site locations. They are in logic once the player has revealed the site
+    # on the in-game map *via AP item*.
     for i, site in enumerate(Data.historic_site_data):
         region = historic_regions.get(site.region_name, parent_region)
+
         if (i < world.options.historic_site_visit_locations
-            and site.visit_level <= Quests.max_level(world)):
+            and site.visit_level <= Quests.max_level(world)
+            ):
             loc_name = f"Visit {site.name}"
             visit_loc = Locations.CoQLocation(
                 world.player,
@@ -137,8 +144,10 @@ def add_historic_site_regions_and_locations(world: "CoQWorld"):
             )
             visit_loc.progress_type = LocationProgressType.DEFAULT
             region.locations += [visit_loc]
+
         if (i < world.options.historic_site_explore_locations
-            and site.explore_level <= Quests.max_level(world)):
+            and site.explore_level <= Quests.max_level(world)
+            ):
             loc_name = f"Explore {site.name}"
             region = historic_regions.get(site.region_name, parent_region)
             explore_loc = Locations.CoQLocation(

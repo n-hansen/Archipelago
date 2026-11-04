@@ -32,9 +32,6 @@ static_locations: Dict[str, CoQLocationData] = {
     for name, loc in json.loads(location_data).items()
 }
 
-def xp_location_name(lvl: int, step: int):
-    return f"Level {lvl}.{step}"
-
 def xp_locations(frm: int, to: int, per_level: int) -> Iterable[str]:
     assert frm >= 1
     assert to <= Options.MAX_MAX_LEVEL
@@ -45,7 +42,7 @@ def xp_locations(frm: int, to: int, per_level: int) -> Iterable[str]:
             # We start at level 1.0, so skip first element
             if level == 1 and step == 0:
                 continue
-            yield xp_location_name(level,step)
+            yield f"Level {lvl}.{step}"
 
 def sultan_secret_locations(opts: Optional[Options.CoQOptions]) -> Iterable[tuple[str,int]]:
     req_secrets = opts.sultan_secrets_required if opts is not None else Options.MAX_SULTAN_SECRETS
