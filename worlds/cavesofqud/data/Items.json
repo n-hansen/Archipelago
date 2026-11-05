@@ -47,6 +47,159 @@
         "type": "randomItem",
         "population": "Junk 8"
     },
+    "Ape Fur Cloak": {
+        "category": "filler",
+        "weight": 50,
+        "type": "item",
+        "blueprint": "Ape Fur Cloak",
+        "limit": 1
+    },
+    "Ape Fur Hat": {
+        "category": "filler",
+        "weight": 50,
+        "type": "item",
+        "blueprint": "Ape Fur Hat",
+        "limit": 1
+    },
+    "Ape Fur Gloves": {
+        "category": "filler",
+        "weight": 50,
+        "type": "item",
+        "blueprint": "Ape Fur Gloves",
+        "limit": 1
+    },
+    "Homoelectric Wrist Warmer": {
+        "category": "filler",
+        "weight": 25,
+        "type": "item",
+        "blueprint": "Homoelectric Wrist Warmer",
+        "limit": 2
+    },
+    "Night-vision Goggles": {
+        "category": "filler",
+        "weight": 75,
+        "type": "item",
+        "blueprint": "Night-vision Goggles",
+        "limit": 1
+    },
+    "Flamethrower": {
+        "category": "filler",
+        "weight": 75,
+        "type": "item",
+        "blueprint": "Flamethrower",
+        "limit": 1
+    },
+    "Defoliant Pump": {
+        "category": "filler",
+        "weight": 75,
+        "type": "item",
+        "blueprint": "Defoliant Gas Pump",
+        "limit": 1
+    },
+    "Fungicide Pump": {
+        "category": "filler",
+        "weight": 75,
+        "type": "item",
+        "blueprint": "Fungicide Gas Pump",
+        "limit": 1
+    },
+    "Data Disk: Wooly Mod": {
+        "category": "filler",
+        "weight": 50,
+        "type": "item",
+        "blueprint": "APDataDiskModWooly",
+        "limit": 1
+    },
+    "Data Disk: Reinforced Mod": {
+        "category": "filler",
+        "weight": 50,
+        "type": "item",
+        "blueprint": "APDataDiskModReinforced",
+        "limit": 1
+    },
+    "Data Disk: Visored Mod": {
+        "category": "filler",
+        "weight": 75,
+        "type": "item",
+        "blueprint": "APDataDiskModVisored",
+        "limit": 1
+    },
+    "Data Disk: Two-faced Mod": {
+        "category": "filler",
+        "weight": 25,
+        "type": "item",
+        "blueprint": "APDataDiskModTwoFaced",
+        "limit": 1
+    },
+    "Data Disk: Sharp Mod": {
+        "category": "filler",
+        "weight": 75,
+        "type": "item",
+        "blueprint": "APDataDiskModSharp",
+        "limit": 1
+    },
+    "Data Disk: Freezing Mod": {
+        "category": "filler",
+        "weight": 50,
+        "type": "item",
+        "blueprint": "APDataDiskModFreezing",
+        "limit": 1
+    },
+    "Data Disk: Flaming Mod": {
+        "category": "filler",
+        "weight": 50,
+        "type": "item",
+        "blueprint": "APDataDiskModFlaming",
+        "limit": 1
+    },
+    "Data Disk: Electrified Mod": {
+        "category": "filler",
+        "weight": 50,
+        "type": "item",
+        "blueprint": "APDataDiskModElectrified",
+        "limit": 1
+    },
+    "Data Disk: Counterweighted Mod": {
+        "category": "filler",
+        "weight": 75,
+        "type": "item",
+        "blueprint": "APDataDiskModCounterweighted",
+        "limit": 1
+    },
+    "Data Disk: Scoped Mod": {
+        "category": "filler",
+        "weight": 75,
+        "type": "item",
+        "blueprint": "APDataDiskModScoped",
+        "limit": 1
+    },
+    "Data Disk: Masterwork Mod": {
+        "category": "filler",
+        "weight": 50,
+        "type": "item",
+        "blueprint": "APDataDiskModMasterwork",
+        "limit": 1
+    },
+    "Data Disk: Radio-powered Mod": {
+        "category": "filler",
+        "weight": 25,
+        "type": "item",
+        "blueprint": "APDataDiskModRadioPowered",
+        "limit": 1
+    },
+    "Schrodinger Page from the Annals of Qud": {
+        "category": "filler",
+        "weight": 10,
+        "type": "randomItem",
+        "population": "APSchrodingerPage"
+    },
+    "Reprogrammable Recoiler": {
+        "category": "filler",
+        "weight": 10,
+        "type": "item",
+        "blueprint": "Reprogrammable Recoiler",
+        "limit": 1
+    },
     "Sleep Gas Grenades Trap": {
         "category": "trap",
         "weight": 10,

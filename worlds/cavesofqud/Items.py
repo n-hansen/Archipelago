@@ -18,6 +18,7 @@ class CoQItemData(NamedTuple):
     name: str
     category: str
     weight: int
+    limit: int
 
 
 item_data = pkgutil.get_data(__name__, "data/Items.json")
@@ -27,6 +28,7 @@ static_items: Dict[str, CoQItemData] = {
         name=name,
         category=item["category"],
         weight=item["weight"] if "weight" in item else 1,
+        limit=item["limit"] if "limit" in item else -1,
     )
     for name, item in json.loads(item_data).items()
 }
@@ -112,19 +114,29 @@ def create_stat_items_on_levelup(world: "CoQWorld", level: int) -> list[CoQItem]
     ]
 
 
-def create_filler_item(world: "CoQWorld") -> CoQItem:
+def create_filler_item(world: "CoQWorld", already_placed=None) -> CoQItem:
     category = world.random.choices(
         ["filler", "trap"],
         [100 - world.options.trap_percentage, float(world.options.trap_percentage)],
     )[0]
-    weights = [
-        data.weight for name, data in static_items.items() if data.category == category
-    ]
+    items, weights = [], []
+    for name, data in static_items.items():
+        if data.category != category or (
+                already_placed is not None
+                and name in already_placed
+                and data.limit > 0
+                and data.limit <= already_placed[name]
+        ):
+            continue
+        weights.append(data.weight)
+        items.append(name)
     name = world.random.choices(
-        [name for name, data in static_items.items() if data.category == category],
+        items,
         weights,
         k=1,
     )[0]
+    if already_placed is not None:
+        already_placed[name]=already_placed.get(name,0)+1
     return CoQItem(
         name,
         ItemClassification.trap if category == "trap" else ItemClassification.filler,
@@ -183,8 +195,9 @@ def create_items(world: "CoQWorld"):
         item_pool += create_stat_items_on_levelup(world, level)
 
     # Fill up with fillers
+    placed_filler={}
     while len(item_pool) < total_locations:
-        item_pool += [create_filler_item(world)]
+        item_pool += [create_filler_item(world, placed_filler)]
 
     world.multiworld.itempool += item_pool
 
