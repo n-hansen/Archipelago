@@ -52,11 +52,16 @@ unlock_items = {
     "Kyakukya Token": 15,
 }
 
+misc_items = [
+    "Location of Some Flattened Remains",
+]
+
 all_items: Iterable[str] = [
     main_quest_item,
     *stat_items,
     *[i for i in static_items.keys()],
     *unlock_items,
+    *misc_items,
     *[s.name for s in Data.historic_site_data]
 ]
 
@@ -194,6 +199,14 @@ def create_items(world: "CoQWorld"):
     for level in levelup_levels(Quests.max_level(world)):
         item_pool += create_stat_items_on_levelup(world, level)
 
+    for item in misc_items:
+        item_pool.append(CoQItem(
+            item,
+            ItemClassification.filler,
+            world.item_name_to_id[item],
+            world.player,
+        ))
+
     # Fill up with fillers
     placed_filler={}
     while len(item_pool) < total_locations:
@@ -212,6 +225,8 @@ def create_any_item_static(world: "CoQWorld", name: str) -> Item:
         )
     elif name in stat_items or name in unlock_items:
         classification = ItemClassification.progression
+    elif name in misc_items:
+        classification = ItemClassification.filler
     else:
         raise Exception(f"Item {name} couldn't be found in item definitions")
 
